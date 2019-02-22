@@ -33,6 +33,23 @@ class Body:
         self.name = new_name
         self.mass = new_mass
 
+    # Instead of adding a class method to each child class, this works for all
+    # of them, since they inherit the method from the parent, but when calling
+    # it on a specific Planet, Star, or Moon the class of that object will be
+    # be used for comparison.
+    @classmethod
+    def all(cls, system):
+        # Define an empty list to start with
+        curr_list_bodies = []
+        # For each item in the list of bodies of the system
+        for num in range(0, len(system.bodies)):
+            # If the type of the body in the list at the current position
+            # matches the class that it's being called on, add it to the list
+            if type(system.bodies[num]) == cls:
+                curr_list_bodies.append(system.bodies[num])
+        # Return the list of bodies
+        return curr_list_bodies
+
 
 class Planet(Body):
     """A class to represent a planet, a specific type of celestial body. In
@@ -74,12 +91,17 @@ class Moon(Body):
 
 
 earth = Planet('earth', 5972000000000000000000000, 24, 365)
+earth2 = Planet('earth', 5972000000000000000000000, 24, 365)
 sun = Star('the sun', 1989000000000000000000000000000, 'g-type')
 moon = Moon('the moon', 73476730900000000000000, 27, earth)
+moon2 = Moon('the moon', 73476730900000000000000, 27, earth)
 our_solar_system = System()
 our_solar_system.add(earth)
+our_solar_system.add(earth2)
 our_solar_system.add(sun)
 our_solar_system.add(moon)
 print(our_solar_system)
 print(our_solar_system.add(moon))
 print(our_solar_system.total_mass())
+print(earth.all(our_solar_system))
+print(moon.all(our_solar_system))

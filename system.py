@@ -8,7 +8,11 @@ class System:
 
     # Instance method to add a body to the system's list of bodies
     def add(self, new_body):
-        self.bodies.append(new_body)
+        if new_body not in self.bodies:
+            # Add the body if it's not already in the list
+            self.bodies.append(new_body)
+        else:
+            return "The body {} is already in the list.".format(new_body.name)
 
     # Instance method to iterate through each body in the system and sum their
     # masses
@@ -76,4 +80,6 @@ our_solar_system = System()
 our_solar_system.add(earth)
 our_solar_system.add(sun)
 our_solar_system.add(moon)
+print(our_solar_system)
+print(our_solar_system.add(moon))
 print(our_solar_system.total_mass())

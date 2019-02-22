@@ -37,10 +37,18 @@ class Star(Body):
 
 
 class Moon(Body):
-    pass
+
+    def __init__(self, new_name, new_mass, new_month, new_planet):
+        super().__init__(new_name, new_mass)
+        self.month = new_month
+        self.planet = new_planet
 
 
-thing1 = Body('thing1', 4)
-sys1 = System()
-sys1.add(thing1)
-print(sys1.total_mass())
+earth = Planet('earth', 5972000000000000000000000, 24, 365)
+sun = Star('the sun', 1989000000000000000000000000000, 'g-type')
+moon = Moon('the moon', 73476730900000000000000, 27, earth)
+our_solar_system = System()
+our_solar_system.add(earth)
+our_solar_system.add(sun)
+our_solar_system.add(moon)
+print(our_solar_system.total_mass())

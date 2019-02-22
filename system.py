@@ -1,12 +1,17 @@
 class System:
 
-    bodies = []
+    def __init__(self):
+        self.bodies = []
 
-    def add(self):
-        pass
+    def add(self, new_body):
+        self.bodies.append(new_body)
 
     def total_mass(self):
-        pass
+        curr_mass = 0
+        for num, body in enumerate(self.bodies, 1):
+            print(body)
+            curr_mass += body.mass
+        return curr_mass
 
 
 class Body:
@@ -31,3 +36,9 @@ class Star(Body):
 
 class Moon(Body):
     pass
+
+
+thing1 = Body('thing1', 4)
+sys1 = System()
+sys1.add(thing1)
+print(sys1.total_mass())

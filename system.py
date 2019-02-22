@@ -24,14 +24,16 @@ class Body:
 class Planet(Body):
 
     def __init__(self, new_name, new_mass, new_day, new_year):
-        self.name = new_name
-        self.mass = new_mass
+        super().__init__(new_name, new_mass)
         self.day = new_day
         self.year = new_year
 
 
 class Star(Body):
-    pass
+
+    def __init__(self, new_name, new_mass, new_type):
+        super().__init__(new_name, new_mass)
+        self.type = new_type
 
 
 class Moon(Body):

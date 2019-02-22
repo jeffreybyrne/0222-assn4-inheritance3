@@ -1,10 +1,12 @@
 class System:
     """A class to represent a solar system, a collection of celestial bodies
     """
+    list_of_systems = []
 
     # Initialize a new instance with an empty list of bodies
     def __init__(self):
         self.bodies = []
+        System.list_of_systems.append(self)
 
     # Instance method to add a body to the system's list of bodies
     def add(self, new_body):
@@ -19,9 +21,16 @@ class System:
     def total_mass(self):
         curr_mass = 0
         for num, body in enumerate(self.bodies, 1):
-            print(body)
+            # print(body)
             curr_mass += body.mass
         return curr_mass
+
+    @classmethod
+    def total_galactic_mass(cls):
+        temp_sum = 0
+        for num in range(0, len(cls.list_of_systems)):
+            temp_sum += cls.list_of_systems[num].total_mass()
+        return temp_sum
 
 
 class Body:
@@ -45,7 +54,7 @@ class Body:
         for num in range(0, len(system.bodies)):
             # If the type of the body in the list at the current position
             # matches the class that it's being called on, add it to the list
-            if type(system.bodies[num]) == cls:
+            if isinstance(system.bodies[num], cls):
                 curr_list_bodies.append(system.bodies[num])
         # Return the list of bodies
         return curr_list_bodies
@@ -105,3 +114,12 @@ print(our_solar_system.add(moon))
 print(our_solar_system.total_mass())
 print(earth.all(our_solar_system))
 print(moon.all(our_solar_system))
+
+al_star = Star('proxima centauri', 244600000000000000000000000000, 'm5')
+al_planet = Planet('alpha centauri a', 2188000000000000000000000000000, 8, 500)
+al_moon = Moon('alpha moon', 2357698090000000000000, 13, al_planet)
+alpha_centauri = System()
+alpha_centauri.add(al_star)
+alpha_centauri.add(al_planet)
+alpha_centauri.add(al_moon)
+print(System.total_galactic_mass())
